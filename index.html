@@ -1,0 +1,1213 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="theme-color" content="#050203">
+<title>Winter Solstice Dinner — feed the fire</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=UnifrakturMaguntia&family=IM+Fell+English:ital@0;1&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#0c0603; --soot:#160b05; --brick:#3a1c10; --brick2:#2c140a;
+    --bone:#ecdcb9; --ember:#ff8c3a; --flame:#ffb347; --eerie:#9fffba;
+  }
+  *{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent;}
+  html{background:#050203;overscroll-behavior:none;}
+  body{
+    font-family:'IM Fell English',Georgia,serif;color:var(--bone);font-size:17px;
+    background:
+      radial-gradient(ellipse 120% 60% at 50% 100%, rgba(255,120,30,.14), transparent 60%),
+      linear-gradient(180deg,#050203 0%,var(--ink) 40%,var(--soot) 100%);
+    min-height:100vh;min-height:100dvh;overflow-x:clip;width:100%;
+  }
+  .shake{animation:quake .35s;}
+  @keyframes quake{
+    0%,100%{transform:translate(0,0);}20%{transform:translate(-6px,3px);}
+    40%{transform:translate(5px,-4px);}60%{transform:translate(-4px,-3px);}80%{transform:translate(3px,4px);}
+  }
+
+  /* ===== ambient ===== */
+  .wallflicker{
+    position:fixed;inset:0;pointer-events:none;z-index:1;
+    background:radial-gradient(ellipse 80% 50% at 50% 80%, rgba(255,130,40,.16), transparent 65%);
+    animation:gutter 4.2s ease-in-out infinite;
+  }
+  @keyframes gutter{
+    0%,100%{opacity:.55;}18%{opacity:.95;}31%{opacity:.6;}47%{opacity:1;}63%{opacity:.7;}82%{opacity:.9;}
+  }
+  .aurora{
+    position:fixed;top:0;left:-30%;width:160%;height:34vh;z-index:1;pointer-events:none;opacity:.7;
+    background:linear-gradient(100deg,transparent 10%,rgba(120,255,190,.09) 35%,rgba(140,170,255,.07) 55%,rgba(120,255,190,.06) 70%,transparent 90%);
+    animation:auroradrift 22s ease-in-out infinite alternate;
+  }
+  @keyframes auroradrift{
+    from{transform:translateX(-6%) skewY(-2deg);opacity:.45;}
+    50%{opacity:.85;}
+    to{transform:translateX(6%) skewY(2deg);opacity:.55;}
+  }
+  .mist{
+    position:fixed;bottom:0;left:-20%;width:140%;height:110px;z-index:2;pointer-events:none;
+    background:radial-gradient(ellipse 40% 100% at 30% 100%, rgba(190,210,200,.10), transparent 70%),
+               radial-gradient(ellipse 35% 100% at 70% 100%, rgba(190,210,200,.08), transparent 70%);
+    animation:drift 16s ease-in-out infinite alternate;
+  }
+  @keyframes drift{from{transform:translateX(-6%);}to{transform:translateX(6%);}}
+  .firefly{
+    position:fixed;width:5px;height:5px;border-radius:50%;z-index:2;pointer-events:none;
+    background:var(--eerie);box-shadow:0 0 10px var(--eerie);opacity:0;
+    animation:floatup linear infinite, twinkle 2.6s ease-in-out infinite;
+  }
+  @keyframes floatup{
+    0%{transform:translate(0,0);}25%{transform:translate(14px,-25vh);}
+    50%{transform:translate(-10px,-50vh);}75%{transform:translate(12px,-75vh);}
+    100%{transform:translate(0,-105vh);}
+  }
+  @keyframes twinkle{0%,100%{opacity:.08;}50%{opacity:.55;}}
+  .coldsnap{
+    position:fixed;inset:0;z-index:3;pointer-events:none;opacity:0;transition:opacity .9s;
+    background:radial-gradient(ellipse at 50% 40%, rgba(120,170,255,.16), rgba(10,20,50,.22));
+  }
+  .coldsnap.on{opacity:1;}
+  .whisper{
+    position:fixed;z-index:3;font-style:italic;font-size:.95rem;color:rgba(159,255,186,.7);
+    pointer-events:none;opacity:0;transition:opacity 1.6s;text-shadow:0 0 8px rgba(0,0,0,.8);
+    max-width:60vw;
+  }
+  .whisper.on{opacity:1;}
+
+  .soundbtn{
+    position:fixed;top:10px;right:10px;z-index:95;
+    background:rgba(0,0,0,.55);border:1px solid rgba(232,217,184,.35);color:var(--bone);
+    border-radius:999px;padding:9px 15px;font-family:inherit;font-size:.95rem;cursor:pointer;
+  }
+
+  header{text-align:center;padding:34px 16px 4px;position:relative;z-index:5;}
+  .eyebrow{letter-spacing:.3em;text-transform:uppercase;font-size:.78rem;color:var(--eerie);opacity:.9;}
+  h1{
+    font-family:'UnifrakturMaguntia',serif;
+    font-weight:400;font-size:clamp(2.7rem,11.5vw,5.2rem);line-height:1.04;
+    margin:.22em 0 .1em;color:#f7ead0;cursor:pointer;user-select:none;-webkit-user-select:none;
+    text-shadow:0 0 26px rgba(255,140,50,.45),0 2px 4px #000;
+    animation:titlebreathe 5s ease-in-out infinite alternate;
+  }
+  @keyframes titlebreathe{
+    from{text-shadow:0 0 18px rgba(255,140,50,.35),0 2px 4px #000;}
+    to{text-shadow:0 0 38px rgba(255,140,50,.7),0 2px 4px #000;}
+  }
+  body.party h1{animation:partytitle 1s linear infinite;}
+  @keyframes partytitle{
+    0%{text-shadow:0 0 30px #ff5050;}25%{text-shadow:0 0 30px #ffd23a;}
+    50%{text-shadow:0 0 30px #5dff7c;}75%{text-shadow:0 0 30px #5da9ff;}100%{text-shadow:0 0 30px #ff5050;}
+  }
+  body.party .fire svg{animation:hueparty 1.4s linear infinite;}
+  @keyframes hueparty{to{filter:hue-rotate(360deg);}}
+  .sub{font-style:italic;font-size:1.2rem;max-width:32ch;margin:0 auto;color:#d2bd92;}
+  .details{margin-top:12px;font-size:1.08rem;color:var(--ember);}
+  .details span{margin:0 .45em;opacity:.5;}
+  .ico{width:1.2em;height:1.2em;vertical-align:-0.22em;display:inline-block;}
+  .ico path,.ico circle,.ico ellipse{stroke:var(--ember);fill:none;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round;}
+  .ico .fill{fill:var(--ember);stroke:none;}
+
+  .howto{
+    margin:22px auto 0;max-width:500px;position:relative;z-index:5;
+    background:linear-gradient(#171009,#100a05);
+    border:1px solid rgba(232,217,184,.28);border-radius:6px;
+    padding:16px 20px 14px;box-shadow:0 10px 30px rgba(0,0,0,.6);
+  }
+  .howto h2{font-family:'UnifrakturMaguntia',serif;font-size:1.6rem;font-weight:400;margin-bottom:7px;text-align:center;color:#f7ead0;}
+  .howto ol{margin-left:1.3em;font-size:1.12rem;line-height:1.62;text-align:left;}
+  .howto b{color:var(--flame);}
+
+  /* ===== scene ===== */
+  .stage{position:relative;z-index:4;margin:96px auto 0;max-width:540px;padding:0 10px;perspective:900px;}
+  .room3d{animation:sway 9s ease-in-out infinite alternate;}
+  @keyframes sway{from{transform:rotateX(2.5deg) rotateY(-1.6deg);}to{transform:rotateX(1deg) rotateY(1.6deg);}}
+
+  .runering{
+    position:absolute;left:50%;bottom:-44px;width:340px;height:340px;margin-left:-170px;
+    transform:rotateX(74deg);z-index:1;pointer-events:none;
+  }
+  .runering .ring{
+    position:absolute;inset:0;border-radius:50%;
+    border:2px dashed rgba(159,255,186,.35);
+    box-shadow:0 0 24px rgba(159,255,186,.18),inset 0 0 24px rgba(159,255,186,.12);
+    animation:spin 26s linear infinite;
+  }
+  body.party .runering .ring{animation-duration:2s;}
+  .runering .rune{
+    position:absolute;top:50%;left:50%;font-size:22px;color:var(--eerie);
+    text-shadow:0 0 10px rgba(159,255,186,.8);
+  }
+  @keyframes spin{to{transform:rotate(360deg);}}
+
+  .window{
+    position:absolute;top:-52px;left:6px;width:96px;height:118px;border-radius:8px 8px 3px 3px;
+    background:#050a12;border:7px solid #21130a;z-index:2;cursor:pointer;
+    box-shadow:inset 0 0 22px #000;overflow:hidden;
+  }
+  .window::before{content:'';position:absolute;left:50%;top:0;width:5px;height:100%;background:#21130a;transform:translateX(-50%);}
+  .eyes{position:absolute;bottom:26px;left:50%;transform:translateX(-50%);display:flex;gap:12px;animation:blink 7s infinite;transition:opacity .2s;}
+  .eyes.fled{opacity:0;}
+  .eyes.second{bottom:58px;animation-delay:1.3s;}
+  .eyes i{width:7px;height:7px;border-radius:50%;background:var(--eerie);box-shadow:0 0 8px var(--eerie);}
+  @keyframes blink{
+    0%,86%,90%,100%{opacity:.9;transform:translateX(-50%) scaleY(1);}
+    88%{transform:translateX(-50%) scaleY(.1);}40%,60%{opacity:0;}
+  }
+  @media (max-width:430px){.window{display:none;}}
+
+  .fireplace{position:relative;z-index:3;}
+  .mantel{
+    position:absolute;top:-18px;left:-14px;right:-14px;height:24px;border-radius:3px;
+    background:linear-gradient(#33200f,#1d1107);z-index:5;box-shadow:0 6px 18px rgba(0,0,0,.7);
+  }
+  .brickbox{
+    position:relative;height:380px;border-radius:5px;overflow:hidden;
+    transform:translateZ(0);backface-visibility:hidden;-webkit-backface-visibility:hidden;
+    background:repeating-linear-gradient(0deg,var(--brick) 0 32px,var(--brick2) 32px 36px);
+    box-shadow:inset 0 0 70px rgba(0,0,0,.85),0 16px 44px rgba(0,0,0,.7);
+  }
+  .brickbox::before{
+    content:'';position:absolute;inset:0;opacity:.55;
+    background:repeating-linear-gradient(90deg,transparent 0 62px,var(--brick2) 62px 66px);
+  }
+  .hearth{
+    position:absolute;left:50%;bottom:0;transform:translateX(-50%);
+    width:84%;height:80%;border-radius:170px 170px 0 0;
+    background:radial-gradient(ellipse at 50% 100%, #190a02 0%, #060201 78%);
+    box-shadow:inset 0 0 60px #000;overflow:hidden;cursor:pointer;
+  }
+  .logs{position:absolute;left:50%;bottom:0;transform:translateX(-50%);width:86%;pointer-events:none;}
+  .logs svg{width:100%;height:auto;display:block;}
+
+  /* ===== THE FLAMES — live OUTSIDE the clipped hearth so they pop above the mantel ===== */
+  .fire{
+    position:absolute;left:50%;bottom:22px;width:62%;height:150%;
+    transform:translateX(-50%);transform-origin:50% 100%;
+    pointer-events:none;z-index:6;
+    transition:transform .25s ease-out;
+    filter:drop-shadow(0 0 26px rgba(255,130,40,.45));
+  }
+  .fire svg{
+    position:absolute;left:0;bottom:0;width:100%;height:100%;
+    overflow:visible;backface-visibility:hidden;-webkit-backface-visibility:hidden;
+  }
+  .ignite{transform-origin:50% 100%;transform:scaleY(.06) scaleX(.5);opacity:0;}
+  .fireplace.lit .ignite{animation:ignite 2.4s cubic-bezier(.3,1.2,.4,1) both;}
+  @keyframes ignite{
+    0%{transform:scaleY(.06) scaleX(.5);opacity:0;}
+    35%{opacity:1;}
+    60%{transform:scaleY(1.14) scaleX(.95);}
+    100%{transform:scaleY(1) scaleX(1);opacity:1;}
+  }
+  .flame{transform-origin:50% 100%;}
+  .fireplace.lit .fl-a{animation:dance 3.4s ease-in-out infinite;}
+  .fireplace.lit .fl-b{animation:dance 2.3s -0.7s ease-in-out infinite;}
+  .fireplace.lit .fl-b2{animation:dance 2.9s -1.4s ease-in-out infinite;}
+  .fireplace.lit .fl-c{animation:dance 1.9s -0.4s ease-in-out infinite;}
+  .fireplace.lit .fl-h{animation:dance 1.2s -0.2s ease-in-out infinite;}
+  .fireplace.lit .fl-sl{animation:swayL 2.6s ease-in-out infinite;}
+  .fireplace.lit .fl-sr{animation:swayR 2.2s -0.8s ease-in-out infinite;}
+  .fireplace.lit .fl-t1{animation:tongue 1.7s -0.3s ease-in-out infinite;}
+  .fireplace.lit .fl-t2{animation:tongue 2.1s -1.1s ease-in-out infinite;}
+  .fl-sl,.fl-sr,.fl-t1,.fl-t2{transform-origin:50% 100%;}
+  @keyframes dance{
+    0%{transform:scaleY(1) scaleX(1) skewX(0);}
+    20%{transform:scaleY(1.06) scaleX(.98) skewX(1.8deg);}
+    40%{transform:scaleY(.97) scaleX(1.02) skewX(-2deg);}
+    60%{transform:scaleY(1.1) scaleX(.99) skewX(2.2deg);}
+    80%{transform:scaleY(.98) scaleX(1.01) skewX(-1.4deg);}
+    100%{transform:scaleY(1) scaleX(1) skewX(0);}
+  }
+  @keyframes swayL{
+    0%,100%{transform:scaleY(1) translateX(0) skewX(0);}
+    50%{transform:scaleY(1.14) translateX(-6px) skewX(-3.5deg);}
+  }
+  @keyframes swayR{
+    0%,100%{transform:scaleY(1) translateX(0) skewX(0);}
+    50%{transform:scaleY(1.12) translateX(6px) skewX(3.5deg);}
+  }
+  @keyframes tongue{
+    0%,100%{transform:scaleY(.85);opacity:.55;}
+    45%{transform:scaleY(1.35) skewX(4deg);opacity:1;}
+    60%{transform:scaleY(1.05) skewX(-3deg);opacity:.8;}
+  }
+  .fire.flare .flame{animation-duration:.45s !important;}
+  .coals{position:absolute;left:50%;bottom:7%;transform:translateX(-50%);display:flex;gap:14px;}
+  .coals i{width:8px;height:8px;border-radius:50%;background:#7a2c08;animation:coalpulse 3.4s ease-in-out infinite;}
+  .coals i:nth-child(2){animation-delay:1.1s;}
+  .coals i:nth-child(3){animation-delay:2.2s;}
+  @keyframes coalpulse{0%,100%{opacity:.35;box-shadow:0 0 4px #b53408;}50%{opacity:.9;box-shadow:0 0 12px #ff7a1a;}}
+  .fireplace.lit .coals{display:none;}
+  .fireglow{
+    position:absolute;left:50%;bottom:0;transform:translateX(-50%);
+    width:140%;height:130%;border-radius:50%;opacity:0;
+    background:radial-gradient(circle at 50% 82%, rgba(255,150,55,.6), transparent 60%);
+  }
+  .fireplace.lit .fireglow{animation:glowpulse 3.1s ease-in-out infinite;animation-delay:.9s;}
+  @keyframes glowpulse{0%{opacity:0;}30%,100%{opacity:.6;}50%{opacity:.95;}75%{opacity:.75;}}
+  .spark{
+    position:absolute;bottom:18%;width:4px;height:4px;border-radius:50%;
+    background:var(--flame);opacity:0;
+  }
+  .fireplace.lit .spark{animation:rise 2.8s ease-in infinite;}
+  @keyframes rise{
+    0%{opacity:0;transform:translate3d(0,0,0);}12%{opacity:1;}
+    100%{opacity:0;transform:translate3d(16px,-260px,0);}
+  }
+
+  .burning-row{
+    position:absolute;left:50%;bottom:10%;transform:translateX(-50%);
+    display:flex;gap:3px;align-items:flex-end;justify-content:center;
+    width:92%;flex-wrap:wrap-reverse;z-index:2;pointer-events:none;
+  }
+  .mini{display:flex;flex-direction:column;align-items:center;animation:charwobble 1.5s ease-in-out infinite alternate;}
+  .mini svg{width:25px;height:auto;}
+  .mini .eyeglow{animation:soulglow 3.5s ease-in-out infinite;}
+  @keyframes soulglow{0%,100%{opacity:.25;}50%{opacity:1;}}
+  .mini-name{
+    font-size:.7rem;color:#ffd9a0;text-shadow:0 1px 3px #000;font-style:italic;
+    max-width:56px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;
+  }
+  @keyframes charwobble{from{transform:rotate(-2deg);}to{transform:rotate(2deg);}}
+
+  .dropring{
+    position:absolute;left:50%;bottom:7%;transform:translateX(-50%);
+    width:76%;height:58%;border:3px dashed transparent;border-radius:150px 150px 16px 16px;
+    pointer-events:none;transition:border-color .2s;z-index:5;
+  }
+  .dropring.active{border-color:rgba(159,255,186,.9);animation:gutter 1s infinite;}
+  .hearthstone{
+    position:relative;height:20px;margin:0 -10px;border-radius:3px;
+    background:linear-gradient(#43362b,#241b13);box-shadow:0 10px 24px rgba(0,0,0,.6);
+  }
+
+  .roll{
+    text-align:center;margin-top:46px;font-size:1.08rem;color:var(--ember);
+    font-style:italic;position:relative;z-index:5;padding:0 14px;
+  }
+
+  .station{
+    position:relative;z-index:6;margin:22px auto 0;max-width:340px;
+    display:flex;flex-direction:column;align-items:center;gap:9px;
+    background:linear-gradient(#171009,#0e0803);
+    border:1px solid rgba(232,217,184,.25);border-radius:6px;padding:18px 20px;
+    box-shadow:0 10px 30px rgba(0,0,0,.6);
+  }
+  .effigy-slot{width:86px;height:142px;display:flex;align-items:center;justify-content:center;}
+
+  /* ===== the manling: rigged limbs ===== */
+  .effigy{
+    width:86px;cursor:grab;touch-action:none;user-select:none;-webkit-user-select:none;
+    animation:breathe 4s ease-in-out infinite alternate;
+  }
+  @keyframes breathe{from{transform:rotate(-2deg);}to{transform:rotate(2deg) scale(1.04);}}
+  .effigy .eyedot{animation:soulglow 6s ease-in-out infinite;}
+  .effigy.dragging{cursor:grabbing;position:fixed;z-index:9999;animation:none;will-change:transform,left,top;}
+  .effigy.flying{position:fixed;z-index:9999;animation:none;cursor:grab;}
+  .effigy.gone{display:none;}
+  .effigy .limb{transform-box:view-box;}
+  #armL{transform-origin:34px 42px;} #armR{transform-origin:46px 42px;}
+  #legL{transform-origin:37px 84px;} #legR{transform-origin:43px 84px;}
+  /* limbs flail while dragged or thrown */
+  .effigy.flail #armL{animation:swingA .26s ease-in-out infinite alternate;}
+  .effigy.flail #armR{animation:swingB .22s -0.1s ease-in-out infinite alternate;}
+  .effigy.flail #legL{animation:swingB .3s -0.05s ease-in-out infinite alternate;}
+  .effigy.flail #legR{animation:swingA .24s -0.12s ease-in-out infinite alternate;}
+  /* polite wave when tapped */
+  .effigy.wiggle #armL{animation:swingA .3s ease-in-out 3 alternate;}
+  .effigy.wiggle #armR{animation:swingB .3s ease-in-out 3 alternate;}
+  .effigy.wiggle #legL{animation:swingB .34s ease-in-out 3 alternate;}
+  .effigy.wiggle #legR{animation:swingA .3s ease-in-out 3 alternate;}
+  @keyframes swingA{from{transform:rotate(-26deg);}to{transform:rotate(20deg);}}
+  @keyframes swingB{from{transform:rotate(22deg);}to{transform:rotate(-24deg);}}
+  /* burnt to a crisp */
+  .effigy path,.effigy rect,.effigy circle{transition:fill .7s ease,stroke .7s ease;}
+  .effigy.charred path,.effigy.charred rect,.effigy.charred circle{fill:#16100a !important;stroke:#0b0603 !important;}
+  .effigy.charred .eyedot{fill:#ffb347 !important;animation:soulglow .7s ease-in-out infinite;}
+
+  /* the burned man stands in the pyre, in front of the flames */
+  .pyreman{
+    position:absolute;z-index:7;width:64px;pointer-events:none;
+    animation:charwobble 1.6s ease-in-out infinite alternate;
+    filter:drop-shadow(0 0 8px rgba(255,140,40,.7));
+  }
+  .pyreman svg{width:100%;height:auto;display:block;}
+  .pyreman path,.pyreman rect,.pyreman circle{transition:fill .7s ease,stroke .7s ease;}
+  .pyreman.charred path,.pyreman.charred rect,.pyreman.charred circle{fill:#16100a !important;stroke:#0b0603 !important;}
+  .pyreman.charred .eyedot{fill:#ffb347 !important;animation:soulglow .7s ease-in-out infinite;}
+
+  .station-label{font-size:1rem;font-style:italic;color:var(--eerie);text-align:center;}
+  .namefield{width:100%;display:flex;flex-direction:column;gap:7px;align-items:center;}
+  .namefield label{font-size:1.1rem;}
+  .namefield input{
+    width:100%;padding:13px 14px;border-radius:4px;border:1px solid rgba(232,217,184,.45);
+    background:#f3e6c6;font-size:1.15rem;font-family:inherit;color:#2a160a;
+    outline:none;text-align:center;
+  }
+  .namefield input:focus{border-color:var(--ember);box-shadow:0 0 0 3px rgba(255,140,58,.35);}
+  .hint{font-size:.98rem;color:#caa97a;font-style:italic;min-height:1.3em;text-align:center;}
+
+  .toast{
+    position:fixed;left:50%;bottom:24px;transform:translateX(-50%) translateY(20px);
+    background:#f3e6c6;color:#2a160a;padding:11px 19px;border-radius:4px;z-index:99;
+    font-style:italic;font-size:1.02rem;opacity:0;transition:opacity .4s,transform .4s;max-width:88vw;text-align:center;
+    box-shadow:0 8px 24px rgba(0,0,0,.6);
+  }
+  .toast.on{opacity:1;transform:translateX(-50%) translateY(0);}
+
+  .burst{position:fixed;z-index:65;pointer-events:none;font-size:18px;will-change:transform,opacity;}
+  .burst.dot{width:6px;height:6px;border-radius:50%;background:var(--flame);box-shadow:0 0 8px var(--ember);}
+
+  .confirm{
+    position:fixed;inset:0;display:flex;align-items:center;justify-content:center;
+    background:rgba(4,1,0,.78);opacity:0;pointer-events:none;transition:opacity .6s;
+    z-index:80;padding:18px;perspective:900px;
+  }
+  .confirm.show{opacity:1;pointer-events:auto;}
+  .ticket{
+    background:linear-gradient(#f6ead0,#e6d2a4);color:#2a160a;border-radius:6px;
+    padding:28px 24px;text-align:center;max-width:390px;width:100%;
+    border:2px dashed #8a5a2e;box-shadow:0 22px 70px rgba(0,0,0,.85);
+    transform:rotateX(80deg);transition:transform .9s cubic-bezier(.2,1.4,.4,1);
+  }
+  .confirm.show .ticket{transform:rotateX(0);}
+  .ticket .tk-top{letter-spacing:.3em;font-size:.78rem;text-transform:uppercase;color:#8a5a2e;}
+  .ticket .tk-man{width:52px;margin:6px auto 0;}
+  .ticket .tk-man svg{width:100%;height:auto;display:block;}
+  .ticket .tk-man .eyedot{animation:soulglow 1s ease-in-out infinite;}
+  .ticket h3{font-family:'UnifrakturMaguntia',serif;font-size:2.2rem;font-weight:400;margin:.15em 0 .1em;}
+  .ticket .tk-name{
+    font-size:1.85rem;margin:.3em 0;padding:.25em .4em;
+    border-top:1px solid #8a5a2e;border-bottom:1px solid #8a5a2e;overflow-wrap:anywhere;
+  }
+  .ticket .tk-when{font-size:1.1rem;}
+  .ticket .tk-note{
+    margin-top:12px;font-size:1rem;font-style:italic;background:rgba(138,90,46,.12);
+    border-radius:4px;padding:9px 11px;line-height:1.45;
+  }
+  .ticket button{
+    margin-top:16px;padding:12px 28px;border:1px solid #2a160a;border-radius:3px;
+    background:#2a160a;color:#f6ead0;font-size:1.05rem;cursor:pointer;font-family:inherit;
+  }
+
+  footer{
+    text-align:center;padding:32px 16px 46px;font-size:1rem;color:#8d744f;
+    font-style:italic;position:relative;z-index:5;
+  }
+
+  @media (prefers-reduced-motion:reduce){*{animation:none !important;transition:none !important;}
+    .ignite{transform:none;opacity:1;} .fireglow{opacity:.7;}
+  }
+</style>
+</head>
+<body>
+
+<div class="wallflicker" aria-hidden="true"></div>
+<div class="aurora" aria-hidden="true"></div>
+<div class="mist" aria-hidden="true"></div>
+<div class="coldsnap" id="coldsnap" aria-hidden="true"></div>
+<button class="soundbtn" id="soundbtn" aria-pressed="false">🔇 Fyre is hush’d</button>
+
+<header>
+  <div class="eyebrow">Sunday the 21st of June · The Longest Night</div>
+  <h1 id="title">Winter Solstice Dinner</h1>
+  <p class="sub">Hark, traveller. The darke half of the yeare endeth, and the hearth hungereth.</p>
+  <div class="details">
+    <svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 21 V10 a6 6 0 0 1 12 0 V21 Z"/><path d="M10 21 V7.6 M14 21 V7.6 M6 14.5 h12" stroke-width="1"/><circle class="fill" cx="12.6" cy="13" r="1"/></svg> Doors at 5pm
+    <span>·</span>
+    <svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.5 C9.2 7.5 6.4 9.6 7.3 14.6 a4.8 4.8 0 0 0 9.4 0 C17.6 9.6 14.8 7.5 12 2.5Z"/><path d="M12 10 c-1.3 2.4-1.9 3.4-1.5 5.3 a1.6 1.6 0 0 0 3 0 c.4-1.9-.2-2.9-1.5-5.3Z" stroke-width="1"/><path d="M5 21.5 h14" stroke-width="1"/></svg> The fyre dieth not
+    <span>·</span>
+    <svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M6.5 9 h11 l-1.6 6.2 a4 4 0 0 1-7.8 0 Z"/><path d="M12 18.5 v2.2 M9 21.5 h6" stroke-width="1.2"/><path d="M10 6 q1.1-1.4 0-3 M14 6 q1.1-1.4 0-3" stroke-width="1"/></svg> Mull'd cider
+  </div>
+
+  <div class="howto">
+    <h2>How thou shalt be enrolled</h2>
+    <ol>
+      <li>Inscribe thy name beneath the <b>little wooden manling</b>.</li>
+      <li><b>Drag the manling into the hearth-fyre</b> with thine own finger.</li>
+      <li>When the flames leap, thou art bound to the revel.</li>
+    </ol>
+  </div>
+</header>
+
+<div class="stage" id="stage">
+  <div class="room3d">
+    <div class="runering" aria-hidden="true"><div class="ring"></div></div>
+    <div class="window" id="windowEl" aria-hidden="true">
+      <div class="eyes" id="eyes"><i></i><i></i></div>
+      <div class="eyes second" id="eyes2" style="opacity:0;"><i></i><i></i></div>
+    </div>
+
+    <div class="fireplace" id="fireplace">
+      <div class="mantel"></div>
+      <div class="brickbox">
+        <div class="hearth" id="hearth">
+          <div class="coals" aria-hidden="true"><i></i><i></i><i></i></div>
+          <div class="fireglow" aria-hidden="true"></div>
+          <div class="burning-row" id="burningRow"></div>
+          <div class="logs" aria-hidden="true">
+            <svg viewBox="0 0 300 46">
+              <rect x="52" y="8" width="196" height="22" rx="11" fill="#3a230f" transform="rotate(-6 150 19)"/>
+              <rect x="52" y="8" width="196" height="22" rx="11" fill="#4a2d13" transform="rotate(6 150 19)"/>
+            </svg>
+          </div>
+        </div>
+        <div class="dropring" id="dropring"></div>
+      </div>
+      <!-- flames live here, OUTSIDE the clipped hearth, so they rise past the mantel -->
+      <div class="fire" id="fire" aria-hidden="true">
+        <svg viewBox="0 0 300 300" preserveAspectRatio="xMidYMax meet">
+          <defs>
+            <linearGradient id="fgBack" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0" stop-color="#7a1d04"/><stop offset="1" stop-color="#c43c08"/>
+            </linearGradient>
+            <linearGradient id="fgMid" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0" stop-color="#e8540e"/><stop offset="1" stop-color="#ff8c2a"/>
+            </linearGradient>
+            <linearGradient id="fgIn" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0" stop-color="#ffa53d"/><stop offset="1" stop-color="#ffc566"/>
+            </linearGradient>
+            <linearGradient id="fgCore" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0" stop-color="#ffe08a"/><stop offset="1" stop-color="#fff7d6"/>
+            </linearGradient>
+            <radialGradient id="emberbed" cx="50%" cy="100%" r="65%">
+              <stop offset="0" stop-color="#ff8c2a" stop-opacity=".9"/>
+              <stop offset="1" stop-color="#7a1d04" stop-opacity="0"/>
+            </radialGradient>
+          </defs>
+          <g class="ignite">
+            <ellipse cx="150" cy="288" rx="130" ry="24" fill="url(#emberbed)"/>
+            <path class="flame fl-sl" d="M86 110 C62 156 46 182 56 224 C62 256 76 274 86 274 C96 274 110 256 116 224 C125 182 110 156 86 110Z" fill="url(#fgBack)" opacity=".85"/>
+            <path class="flame fl-sr" d="M214 118 C192 160 177 186 186 224 C191 253 204 270 214 270 C224 270 236 253 241 224 C249 186 235 160 214 118Z" fill="url(#fgBack)" opacity=".85"/>
+            <path class="flame fl-t1" d="M112 60 C104 90 96 108 101 140 C104 160 109 170 113 168 C118 165 122 150 121 128 C120 100 117 84 112 60Z" fill="url(#fgMid)" opacity=".8"/>
+            <path class="flame fl-t2" d="M192 70 C198 98 204 114 200 144 C197 162 192 172 188 170 C184 167 181 153 182 132 C184 106 187 92 192 70Z" fill="url(#fgMid)" opacity=".8"/>
+            <path class="flame fl-a" d="M150 6 C96 92 48 142 66 222 C77 268 116 294 150 294 C184 294 223 268 234 222 C252 142 204 92 150 6Z" fill="url(#fgBack)"/>
+            <path class="flame fl-b" d="M150 62 C112 124 84 160 95 220 C102 256 128 280 150 280 C172 280 198 256 205 220 C216 160 188 124 150 62Z" fill="url(#fgMid)"/>
+            <path class="flame fl-b2" d="M150 108 C126 152 106 178 115 222 C120 250 138 266 150 266 C162 266 180 250 185 222 C194 178 174 152 150 108Z" fill="url(#fgIn)"/>
+            <path class="flame fl-c" d="M150 154 C136 182 126 200 131 226 C134 244 144 254 150 254 C156 254 166 244 169 226 C174 200 164 182 150 154Z" fill="url(#fgCore)"/>
+            <path class="flame fl-h" d="M150 196 C144 210 140 219 142 232 C143 242 147 247 150 247 C153 247 157 242 158 232 C160 219 156 210 150 196Z" fill="#fffdf2" opacity=".92"/>
+          </g>
+        </svg>
+      </div>
+      <div class="hearthstone" id="hearthstone" aria-hidden="true"></div>
+    </div>
+  </div>
+
+  <div class="roll" id="roll">The roll of soules is being fetched from the embers…</div>
+
+  <div class="station">
+    <div class="effigy-slot" id="effigySlot">
+      <svg class="effigy" id="effigy" viewBox="0 0 80 132" role="img" aria-label="The little wooden manling — drag or toss him into the fyre to register">
+        <!-- head: carved wood with grain and a sprig -->
+        <path d="M40 2 q3 -2 6 0 q-2 2 -3 4" fill="none" stroke="#5d7a4a" stroke-width="2" stroke-linecap="round"/>
+        <circle cx="40" cy="20" r="14" fill="#8a5a2e" stroke="#43250e" stroke-width="3"/>
+        <path d="M30 14 q10 -5 20 0 M29 22 q4 -2 7 -1" fill="none" stroke="#6b4220" stroke-width="1.4"/>
+        <circle class="eyedot" cx="35" cy="18" r="2.2" fill="#9fffba"/>
+        <circle class="eyedot" cx="45" cy="18" r="2.2" fill="#9fffba"/>
+        <path id="mouth" d="M33 26 q7 3 14 0" stroke="#2b1606" stroke-width="2" fill="none" stroke-linecap="round"/>
+        <!-- torso of lashed sticks -->
+        <rect x="33" y="34" width="14" height="50" rx="6" fill="#7a4e26" stroke="#43250e" stroke-width="3"/>
+        <path d="M35 38 v42 M40 36 v46 M45 38 v42" stroke="#6b4220" stroke-width="1.3"/>
+        <path d="M30 44 L50 50 M50 44 L30 50 M30 62 L50 68 M50 62 L30 68" stroke="#43250e" stroke-width="2.2"/>
+        <circle cx="40" cy="56" r="1.6" fill="#43250e"/>
+        <!-- limbs: rigged for flailing -->
+        <g class="limb" id="armL">
+          <path d="M34 42 L10 28" stroke="#6b4220" stroke-width="7" stroke-linecap="round"/>
+          <path d="M10 28 l-5 -4 M10 28 l-6 2 M16 31 l-3 4" stroke="#6b4220" stroke-width="3" stroke-linecap="round"/>
+        </g>
+        <g class="limb" id="armR">
+          <path d="M46 42 L70 28" stroke="#6b4220" stroke-width="7" stroke-linecap="round"/>
+          <path d="M70 28 l5 -4 M70 28 l6 2 M64 31 l3 4" stroke="#6b4220" stroke-width="3" stroke-linecap="round"/>
+        </g>
+        <g class="limb" id="legL">
+          <path d="M37 84 L27 124" stroke="#6b4220" stroke-width="8" stroke-linecap="round"/>
+          <path d="M27 124 l-5 2" stroke="#6b4220" stroke-width="4" stroke-linecap="round"/>
+        </g>
+        <g class="limb" id="legR">
+          <path d="M43 84 L53 124" stroke="#6b4220" stroke-width="8" stroke-linecap="round"/>
+          <path d="M53 124 l5 2" stroke="#6b4220" stroke-width="4" stroke-linecap="round"/>
+        </g>
+      </svg>
+    </div>
+    <div class="station-label" id="stationLabel">⬆ Drag me into the fyre, and thy place is kept ⬆</div>
+    <div class="namefield">
+      <label for="name">First: inscribe thy name here</label>
+      <input id="name" type="text" placeholder="Thy name" autocomplete="name" maxlength="40">
+      <div class="hint" id="hint"></div>
+    </div>
+  </div>
+</div>
+
+<footer>One manling per soule · Bring a sorrow to burn · Telle no one what the window saw</footer>
+
+<div class="whisper" id="whisper"></div>
+<div class="toast" id="toast"></div>
+
+<div class="confirm" id="confirm">
+  <div class="ticket">
+    <div class="tk-top">✦ admit one soule ✦</div>
+    <div class="tk-man" aria-hidden="true">
+      <svg viewBox="0 0 80 132">
+        <circle cx="40" cy="20" r="14" fill="#16100a" stroke="#0b0603" stroke-width="3"/>
+        <circle class="eyedot" cx="35" cy="18" r="2.2" fill="#ffb347"/>
+        <circle class="eyedot" cx="45" cy="18" r="2.2" fill="#ffb347"/>
+        <path d="M33 26 q7 3 14 0" stroke="#0b0603" stroke-width="2" fill="none" stroke-linecap="round"/>
+        <rect x="33" y="34" width="14" height="50" rx="6" fill="#16100a" stroke="#0b0603" stroke-width="3"/>
+        <path d="M34 42 L10 28 M46 42 L70 28" stroke="#16100a" stroke-width="7" stroke-linecap="round"/>
+        <path d="M37 84 L27 124 M43 84 L53 124" stroke="#16100a" stroke-width="8" stroke-linecap="round"/>
+        <path d="M28 8 q3 -5 6 -3 M48 6 q4 -3 5 1" stroke="#ff8c2a" stroke-width="1.6" fill="none" stroke-linecap="round" opacity=".8"/>
+      </svg>
+    </div>
+    <h3>It is done.</h3>
+    <div class="tk-name" id="tkName"></div>
+    <div class="tk-when">Winter Solstice Dinner<br>Sunday the 21st of June · doors at 5pm</div>
+    <div class="tk-note">📸 Screenshot this modal and send to Reg, because I cbf to implement a backend.</div>
+    <button id="closeConfirm">so mote it be</button>
+  </div>
+</div>
+
+<script>
+'use strict';
+var reduceMotion=false;try{reduceMotion=window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches;}catch(e){}
+function vibe(ms){try{if(navigator.vibrate)navigator.vibrate(ms);}catch(e){}}
+function rand(a,b){return a+Math.random()*(b-a);}
+function pick(arr){return arr[(Math.random()*arr.length)|0];}
+
+/* ===== runes ===== */
+try{(function(){
+  var ring=document.querySelector('.runering');
+  var runes=['ᚠ','ᚱ','ᛟ','ᛉ','ᛏ','ᚹ','ᛞ','ᚦ'];
+  for(var i=0;i<runes.length;i++){
+    var s=document.createElement('span');
+    s.className='rune';s.textContent=runes[i];
+    s.style.transform='rotate('+(i*45)+'deg) translateY(-168px)';
+    ring.appendChild(s);
+  }
+})();}catch(e){}
+
+/* ===== sparks + fireflies ===== */
+try{(function(){
+  var fire=document.getElementById('fire');
+  for(var i=0;i<7;i++){
+    var s=document.createElement('span');
+    s.className='spark';
+    s.style.left=(34+Math.random()*32)+'%';
+    s.style.animationDelay=(Math.random()*2.8)+'s';
+    s.style.animationDuration=(2+Math.random()*1.6)+'s';
+    fire.appendChild(s);
+  }
+  if(reduceMotion)return;
+  for(var j=0;j<6;j++){
+    var f=document.createElement('span');
+    f.className='firefly';
+    f.style.left=rand(4,94)+'vw';
+    f.style.top='100vh';
+    f.style.animationDuration=rand(16,30)+'s, '+rand(1.8,3.4)+'s';
+    f.style.animationDelay=(-rand(0,22))+'s, '+(-rand(0,3))+'s';
+    document.body.appendChild(f);
+  }
+})();}catch(e){}
+
+/* ===== the fire ignites when seen ===== */
+var fireplaceEl=document.getElementById('fireplace');
+var hearth=document.getElementById('hearth');
+var fireLit=false;
+function lightFire(){
+  if(fireLit)return;fireLit=true;
+  fireplaceEl.classList.add('lit');
+  vibe(30);
+}
+try{
+  if('IntersectionObserver' in window){
+    var io=new IntersectionObserver(function(entries){
+      for(var i=0;i<entries.length;i++){
+        if(entries[i].isIntersecting&&entries[i].intersectionRatio>0.3){lightFire();io.disconnect();}
+      }
+    },{threshold:[0.3]});
+    io.observe(hearth);
+  }else{lightFire();}
+}catch(e){lightFire();}
+
+/* =====================================================================
+   SOUND — two engines so the crackle plays no matter what:
+   1) fire.mp3 (your recording), attempted the moment the page loads
+   2) if the mp3 is missing/blocked, a synthesised crackle takes over
+   The corner button mutes both.
+===================================================================== */
+var soundbtn=document.getElementById('soundbtn');
+var soundLive=false,userHushed=false,mp3Dead=false;
+function setBtn(on){
+  soundbtn.textContent=on?'🔊 Fyre speaketh':'🔇 Fyre is hush\u2019d';
+  soundbtn.setAttribute('aria-pressed',String(on));
+}
+setBtn(false); /* muted look until sound truly plays */
+
+var fireAudio=null;
+try{
+  fireAudio=new Audio('fire.mp3');
+  fireAudio.loop=true;fireAudio.preload='auto';
+  fireAudio.setAttribute('playsinline','');
+  fireAudio.addEventListener('playing',function(){
+    soundLive=true;synthMute(true);setBtn(true);
+    removeUnlockers();
+  });
+  fireAudio.addEventListener('error',function(){mp3Dead=true;});
+}catch(e){mp3Dead=true;}
+
+/* synth fallback: brown-noise roar + random pops (the engine that always worked) */
+var ACtx=null,master=null,synthOn=false,synthBuilt=false,synthHushed=false;
+function buildSynth(){
+  if(synthBuilt)return;synthBuilt=true;
+  try{
+    var AC=window.AudioContext||window.webkitAudioContext;
+    if(!AC)return;
+    ACtx=new AC();
+    master=ACtx.createGain();master.gain.value=0.6;master.connect(ACtx.destination);
+    var len=ACtx.sampleRate*2,buf=ACtx.createBuffer(1,len,ACtx.sampleRate),d=buf.getChannelData(0),last=0;
+    for(var i=0;i<len;i++){var w=Math.random()*2-1;last=(last+0.02*w)/1.02;d[i]=last*3;}
+    var src=ACtx.createBufferSource();src.buffer=buf;src.loop=true;
+    var lp=ACtx.createBiquadFilter();lp.type='lowpass';lp.frequency.value=420;
+    var bg=ACtx.createGain();bg.gain.value=0.55;
+    src.connect(lp);lp.connect(bg);bg.connect(master);src.start();
+    (function pop(){
+      if(synthOn&&!synthHushed&&ACtx.state==='running'){
+        var dur=0.02+Math.random()*0.05;
+        var b=ACtx.createBuffer(1,Math.max(1,(ACtx.sampleRate*dur)|0),ACtx.sampleRate),cd=b.getChannelData(0);
+        for(var j=0;j<cd.length;j++){cd[j]=(Math.random()*2-1)*Math.pow(1-j/cd.length,2);}
+        var p=ACtx.createBufferSource();p.buffer=b;
+        var hp=ACtx.createBiquadFilter();hp.type='highpass';hp.frequency.value=900+Math.random()*2200;
+        var pg=ACtx.createGain();pg.gain.value=0.25+Math.random()*0.55;
+        p.connect(hp);hp.connect(pg);pg.connect(master);p.start();
+      }
+      setTimeout(pop,70+Math.random()*430);
+    })();
+  }catch(e){}
+}
+function synthStart(){
+  buildSynth();
+  if(!ACtx)return;
+  try{
+    var b=ACtx.createBuffer(1,1,22050);
+    var s2=ACtx.createBufferSource();s2.buffer=b;s2.connect(ACtx.destination);s2.start(0);
+  }catch(e){}
+  var p=ACtx.resume();
+  function ok(){if(ACtx.state==='running'){synthOn=true;synthHushed=false;soundLive=true;setBtn(true);removeUnlockers();}}
+  if(p&&p.then)p.then(ok);
+  ok();
+}
+function synthMute(m){synthHushed=m;if(ACtx&&m&&!synthOn){}if(ACtx&&m){/* keep ctx for fx */}}
+
+function startSound(){
+  if(userHushed)return;
+  if(fireAudio&&!mp3Dead){
+    var pr=fireAudio.play();
+    if(pr&&pr.catch)pr.catch(function(){});
+  }
+  if(mp3Dead)synthStart();
+}
+function tryStart(e){
+  if(soundLive||userHushed)return;
+  if(e&&e.target&&e.target.closest&&e.target.closest('#soundbtn'))return;
+  startSound();
+  // if the mp3 hasn't produced sound shortly after a real gesture, fall back
+  setTimeout(function(){
+    if(!soundLive&&!userHushed)synthStart();
+  },900);
+}
+function removeUnlockers(){
+  document.removeEventListener('touchend',tryStart,true);
+  document.removeEventListener('click',tryStart,true);
+  document.removeEventListener('keydown',tryStart,true);
+}
+startSound(); // attempt at page load
+document.addEventListener('touchend',tryStart,true);
+document.addEventListener('click',tryStart,true);
+document.addEventListener('keydown',tryStart,true);
+
+soundbtn.addEventListener('click',function(){
+  if(!soundLive||userHushed){
+    /* turn ON */
+    userHushed=false;setBtn(true);
+    if(synthOn){synthHushed=false;if(ACtx)try{ACtx.resume();}catch(e){}soundLive=true;}
+    else{
+      startSound();
+      setTimeout(function(){if(!soundLive&&!userHushed)synthStart();},900);
+    }
+  }else{
+    /* turn OFF */
+    userHushed=true;setBtn(false);
+    if(fireAudio)try{fireAudio.pause();}catch(e){}
+    synthHushed=true;
+    if(ACtx&&synthOn)try{ACtx.suspend();}catch(e){}
+  }
+});
+document.addEventListener('visibilitychange',function(){
+  if(document.hidden){
+    if(fireAudio)try{fireAudio.pause();}catch(e){}
+    if(ACtx)try{ACtx.suspend();}catch(e){}
+  }else if(!userHushed){
+    if(synthOn&&ACtx)try{ACtx.resume();}catch(e){}
+    else if(soundLive)startSound();
+  }
+});
+
+/* fx chirps & whoosh through whichever context exists */
+function fx(){buildSynth();if(ACtx&&ACtx.state!=='running'){try{ACtx.resume();}catch(e){}}return ACtx&&ACtx.state==='running';}
+function popNote(freq){
+  if(!fx())return;
+  var o=ACtx.createOscillator(),g=ACtx.createGain();
+  o.type='triangle';o.frequency.value=freq;
+  g.gain.setValueAtTime(0.18,ACtx.currentTime);
+  g.gain.exponentialRampToValueAtTime(0.001,ACtx.currentTime+0.25);
+  o.connect(g);g.connect(master);o.start();o.stop(ACtx.currentTime+0.26);
+}
+function flareSound(){
+  if(!fx())return;
+  var dur=0.9,b=ACtx.createBuffer(1,(ACtx.sampleRate*dur)|0,ACtx.sampleRate),cd=b.getChannelData(0);
+  for(var i=0;i<cd.length;i++){cd[i]=(Math.random()*2-1)*Math.pow(1-i/cd.length,1.5);}
+  var sN=ACtx.createBufferSource();sN.buffer=b;
+  var bp=ACtx.createBiquadFilter();bp.type='bandpass';
+  bp.frequency.setValueAtTime(280,ACtx.currentTime);
+  bp.frequency.exponentialRampToValueAtTime(1500,ACtx.currentTime+0.5);
+  var g=ACtx.createGain();g.gain.setValueAtTime(0.9,ACtx.currentTime);
+  g.gain.exponentialRampToValueAtTime(0.001,ACtx.currentTime+dur);
+  sN.connect(bp);bp.connect(g);g.connect(master);sN.start();
+}
+
+/* ===== storage, silent failures ===== */
+var GUEST_KEY='solstice-guests',NAME_KEY='solstice-name-draft';
+var guests=[];
+var hasArtifactStore=false;try{hasArtifactStore=(typeof window.storage!=='undefined')&&!!window.storage;}catch(e){}
+function lsGet(k){try{return localStorage.getItem(k);}catch(e){return null;}}
+function lsSet(k,v){try{localStorage.setItem(k,v);}catch(e){}}
+function storeGet(key,shared){
+  if(hasArtifactStore){
+    return window.storage.get(key,shared).then(function(r){return r?r.value:null;}).catch(function(){return null;});
+  }
+  return Promise.resolve(lsGet(key));
+}
+function storeSet(key,val,shared){
+  if(hasArtifactStore){return window.storage.set(key,val,shared).catch(function(){lsSet(key,val);});}
+  lsSet(key,val);return Promise.resolve();
+}
+
+var roll=document.getElementById('roll');
+var burningRow=document.getElementById('burningRow');
+var nameInput=document.getElementById('name');
+var hint=document.getElementById('hint');
+
+function escapeHTML(s){return s.replace(/[&<>"']/g,function(c){return{'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c];});}
+function miniSVG(){
+  return '<svg viewBox="0 0 80 130"><circle cx="40" cy="20" r="14" fill="#241407"/>'+
+    '<circle class="eyeglow" cx="35" cy="18" r="2.4" fill="#ffb347"/>'+
+    '<circle class="eyeglow" cx="45" cy="18" r="2.4" fill="#ffb347"/>'+
+    '<rect x="33" y="34" width="14" height="48" rx="6" fill="#1c0f05"/>'+
+    '<path d="M34 44 L12 30 M46 44 L68 30" stroke="#1c0f05" stroke-width="7" stroke-linecap="round"/>'+
+    '<path d="M36 82 L28 120 M44 82 L52 120" stroke="#1c0f05" stroke-width="8" stroke-linecap="round"/></svg>';
+}
+function renderGuests(){
+  burningRow.innerHTML='';
+  var shown=guests.slice(-14);
+  for(var i=0;i<shown.length;i++){
+    var el=document.createElement('div');
+    el.className='mini';
+    el.innerHTML=miniSVG()+'<span class="mini-name">'+escapeHTML(shown[i].name)+'</span>';
+    el.style.animationDelay=(Math.random()*1.5)+'s';
+    burningRow.appendChild(el);
+  }
+  roll.textContent=guests.length===0
+    ?'No soule hath yet fed the fyre. Be thou the first…'
+    :'🔥 '+guests.length+' soule'+(guests.length===1?'':'s')+' bound to the fyre: '+guests.map(function(g){return g.name;}).join(', ');
+}
+storeGet(GUEST_KEY,true).then(function(g){
+  if(g){try{guests=JSON.parse(g)||[];}catch(e){guests=[];}}
+  renderGuests();
+});
+storeGet(NAME_KEY,false).then(function(draft){
+  if(draft&&!nameInput.value){nameInput.value=draft;hint.textContent='Thy name is remember\u2019d. Now feed the manling to the fyre.';}
+});
+var draftTimer=null;
+nameInput.addEventListener('input',function(){
+  hint.textContent='';
+  clearTimeout(draftTimer);
+  draftTimer=setTimeout(function(){
+    var v=nameInput.value.trim();
+    if(v)storeSet(NAME_KEY,v,false);
+    if(v.toLowerCase()==='reg')hint.textContent='The legend himself. You still have to drag the man.';
+  },300);
+});
+
+/* ===== toasts & whispers ===== */
+var toast=document.getElementById('toast'),toastTimer=null;
+function showToast(msg){
+  toast.textContent=msg;toast.classList.add('on');
+  clearTimeout(toastTimer);
+  toastTimer=setTimeout(function(){toast.classList.remove('on');},2800);
+}
+var whisper=document.getElementById('whisper');
+var WHISPERS=['the fyre is patient','he wants to go in','nice phone','it is colder behind thee','the window remembers','someone unsubscribed. the fyre knows who'];
+(function whisperLoop(){
+  setTimeout(function(){
+    if(!document.hidden&&!reduceMotion){
+      whisper.textContent=pick(WHISPERS);
+      whisper.style.left=rand(8,50)+'vw';
+      whisper.style.top=rand(15,70)+'vh';
+      whisper.classList.add('on');
+      setTimeout(function(){whisper.classList.remove('on');},3200);
+    }
+    whisperLoop();
+  },14000+Math.random()*12000);
+})();
+
+/* ===== haunted moments ===== */
+var coldsnap=document.getElementById('coldsnap');
+setInterval(function(){
+  if(document.hidden||reduceMotion)return;
+  if(Math.random()<0.18){
+    coldsnap.classList.add('on');
+    whisper.textContent='did you feel that';
+    whisper.style.left=rand(15,55)+'vw';whisper.style.top=rand(20,60)+'vh';
+    whisper.classList.add('on');
+    setTimeout(function(){coldsnap.classList.remove('on');whisper.classList.remove('on');},1900);
+  }
+  if(Math.random()<0.1){
+    var e2=document.getElementById('eyes2');
+    e2.style.opacity='1';
+    setTimeout(function(){e2.style.opacity='0';},2500);
+  }
+},34000);
+(function(){var h=new Date().getHours();if(h>=0&&h<4)setTimeout(function(){showToast('You should be asleep. The fyre approves anyway.');},6000);})();
+
+/* ===== particle bursts ===== */
+function burst(x,y,n,emoji){
+  if(reduceMotion)n=Math.min(n,4);
+  for(var i=0;i<n;i++){
+    var el=document.createElement(emoji?'span':'i');
+    el.className='burst'+(emoji?'':' dot');
+    if(emoji)el.textContent=pick(emoji);
+    el.style.left=x+'px';el.style.top=y+'px';
+    document.body.appendChild(el);
+    var ang=Math.random()*Math.PI*2,dist=50+Math.random()*110;
+    try{
+      el.animate(
+        [{transform:'translate(0,0) scale(1)',opacity:1},
+         {transform:'translate('+(Math.cos(ang)*dist)+'px,'+(Math.sin(ang)*dist-60)+'px) scale(.4)',opacity:0}],
+        {duration:600+Math.random()*500,easing:'cubic-bezier(.1,.6,.4,1)'}
+      ).onfinish=(function(node){return function(){node.remove();};})(el);
+    }catch(err){
+      (function(node){setTimeout(function(){node.remove();},700);})(el);
+    }
+  }
+}
+
+/* =====================================================================
+   THE FLAMES REACT — hover-grow & flee the cursor, lean with scroll,
+   surge while the manling approaches, roar when fed. ONLY the flames
+   transform; the logs are a separate static layer.
+===================================================================== */
+var fire=document.getElementById('fire');
+var stageEl=document.getElementById('stage');
+var hoverScale=0,avoidX=0,dragPull=0,feedBoost=0,windDeg=0;
+function applyFire(){
+  fire.style.transform='translateX(calc(-50% + '+avoidX.toFixed(1)+'px)) skewX('+windDeg.toFixed(2)+'deg) scale('+(1+hoverScale+dragPull+feedBoost).toFixed(3)+')';
+}
+hearth.addEventListener('pointermove',function(e){
+  if(dragging)return;
+  var r=hearth.getBoundingClientRect();
+  var dx=Math.max(-1,Math.min(1,(e.clientX-(r.left+r.width/2))/(r.width/2)));
+  hoverScale=0.12;
+  avoidX=-dx*18;
+  applyFire();
+});
+hearth.addEventListener('pointerleave',function(){
+  if(dragging)return;
+  hoverScale=0;avoidX=0;applyFire();
+});
+/* flames lean with the wind of scrolling */
+(function(){
+  if(reduceMotion)return;
+  var lastY=window.pageYOffset,windV=0,raf=null;
+  function step(){
+    windV*=0.86;
+    windDeg+=windV;
+    windDeg*=0.88;
+    applyFire();
+    if(Math.abs(windV)>0.02||Math.abs(windDeg)>0.05){raf=requestAnimationFrame(step);}
+    else{windDeg=0;applyFire();raf=null;}
+  }
+  window.addEventListener('scroll',function(){
+    var y=window.pageYOffset,d=y-lastY;lastY=y;
+    windV+=Math.max(-26,Math.min(26,d))*0.045;
+    windV=Math.max(-3,Math.min(3,windV));
+    if(!raf)raf=requestAnimationFrame(step);
+  },{passive:true});
+})();
+
+/* =====================================================================
+   THE MANLING — rigged limbs, draggable, throwable. He flails when
+   carried, can be tossed across the page (he bounces), and the fyre
+   pulls him in when he comes near: he chars black and is consumed.
+===================================================================== */
+var effigy=document.getElementById('effigy');
+var effigySlot=document.getElementById('effigySlot');
+var dropring=document.getElementById('dropring');
+var stationLabel=document.getElementById('stationLabel');
+var mouth=document.getElementById('mouth');
+var dragging=false,flying=false,burning=false;
+var offX=0,offY=0,lastX=0,lastY=0,lastT=0,velX=0,velY=0;
+var wasOver=false,trailTick=0,holdTimer=null,movedFar=false,startX=0,startY=0,flyRaf=null,restMs=0;
+var NO_NAME_QUOTES=['Inscribe thy name first, lest the fyre forget thee!','No name, no flame.','He refuseth to burn anonymously.','The fyre demandeth paperwork.'];
+
+function hearthCenter(){
+  var r=hearth.getBoundingClientRect();
+  return{x:r.left+r.width/2,y:r.top+r.height*0.62,r:r};
+}
+function effigyCenter(){
+  var r=effigy.getBoundingClientRect();
+  return{x:r.left+r.width/2,y:r.top+r.height/2,w:r.width,h:r.height};
+}
+function nearFire(){
+  var c=hearthCenter(),m=effigyCenter();
+  return Math.hypot(m.x-c.x,m.y-c.y)<105;
+}
+function wiggleOnce(){
+  effigy.classList.remove('wiggle');void effigy.getBoundingClientRect();
+  effigy.classList.add('wiggle');
+  setTimeout(function(){effigy.classList.remove('wiggle');},1100);
+}
+effigy.addEventListener('pointerdown',function(e){
+  if(burning)return;
+  if(flying){stopFlight();}
+  if(!nameInput.value.trim()){
+    wiggleOnce(); // limbs wave when clicked
+    hint.textContent='✍️ '+pick(NO_NAME_QUOTES);
+    popNote(180);vibe(30);nameInput.focus();
+    return;
+  }
+  hint.textContent='';dragging=true;wasOver=false;movedFar=false;
+  startX=e.clientX;startY=e.clientY;
+  lastX=e.clientX;lastY=e.clientY;lastT=performance.now();velX=0;velY=0;
+  mouth.setAttribute('d','M36 24 q4 6 8 0');
+  var r=effigy.getBoundingClientRect();
+  offX=e.clientX-r.left;offY=e.clientY-r.top;
+  effigy.classList.remove('flying');
+  effigy.classList.add('dragging','flail');
+  document.body.appendChild(effigy);
+  effigy.style.width=r.width+'px';
+  moveEffigy(e.clientX,e.clientY);
+  try{effigy.setPointerCapture(e.pointerId);}catch(err){}
+  clearTimeout(holdTimer);
+  holdTimer=setTimeout(function(){
+    if(dragging&&!movedFar){showToast(pick(['He grows impatient.','"Today, perhaps?"','He is doing breathing exercises.']));popNote(240);}
+  },2500);
+  e.preventDefault();
+});
+function moveEffigy(x,y){
+  effigy.style.left=(x-offX)+'px';effigy.style.top=(y-offY)+'px';
+  if(Math.hypot(x-startX,y-startY)>12)movedFar=true;
+  var now=performance.now(),dt=Math.max(8,now-lastT);
+  velX=velX*0.5+((x-lastX)/dt*16)*0.5;
+  velY=velY*0.5+((y-lastY)/dt*16)*0.5;
+  lastX=x;lastY=y;lastT=now;
+  var c=hearthCenter();
+  var d=Math.hypot(x-c.x,y-c.y);
+  var pull=Math.max(0,Math.min(1,1-d/520));
+  effigy.style.transform='rotate('+Math.max(-24,Math.min(24,velX*1.6))+'deg) scale('+(1+pull*0.1)+')';
+  dragPull=pull*0.34;
+  avoidX=-Math.max(-1,Math.min(1,(x-c.x)/(c.r.width/2)))*12;
+  applyFire();
+  dropring.classList.toggle('active',d<170);
+  if(d<170&&!wasOver){vibe(25);popNote(440);}
+  wasOver=d<170;
+  if(pull>0.35&&((trailTick++)%3===0))burst(x,y,1);
+  /* the fyre claims him */
+  if(d<105&&fireLit!==false){snapToFire();}
+}
+effigy.addEventListener('pointermove',function(e){if(dragging)moveEffigy(e.clientX,e.clientY);});
+effigy.addEventListener('pointerup',function(e){
+  if(!dragging)return;dragging=false;
+  clearTimeout(holdTimer);
+  dropring.classList.remove('active');
+  if(nearFire()){snapToFire();return;}
+  /* TOSSED: physics takes over */
+  startFlight();
+});
+effigy.addEventListener('pointercancel',function(){
+  if(!dragging)return;dragging=false;dropring.classList.remove('active');
+  clearTimeout(holdTimer);returnHome(true);
+});
+
+/* ---- flight physics: bounce around the page, snap if he nears the fyre ---- */
+function startFlight(){
+  flying=true;restMs=0;
+  effigy.classList.remove('dragging');
+  effigy.classList.add('flying','flail');
+  if(Math.abs(velX)<1&&Math.abs(velY)<1){velY=-2;}
+  var px=parseFloat(effigy.style.left),py=parseFloat(effigy.style.top);
+  var w=effigy.getBoundingClientRect().width,h=effigy.getBoundingClientRect().height;
+  var lastFrame=performance.now();
+  function step(now){
+    if(!flying)return;
+    var dt=Math.min(2.5,(now-lastFrame)/16.6);lastFrame=now;
+    velY+=0.55*dt;
+    velX*=0.995;
+    px+=velX*dt;py+=velY*dt;
+    var maxX=window.innerWidth-w,maxY=window.innerHeight-h;
+    if(px<0){px=0;velX=-velX*0.55;popNote(220);vibe(10);}
+    if(px>maxX){px=maxX;velX=-velX*0.55;popNote(220);vibe(10);}
+    if(py<0){py=0;velY=-velY*0.5;}
+    if(py>maxY){py=maxY;velY=-velY*0.5;velX*=0.7;if(Math.abs(velY)>1.5){popNote(160);vibe(12);}}
+    effigy.style.left=px+'px';effigy.style.top=py+'px';
+    effigy.style.transform='rotate('+Math.max(-30,Math.min(30,velX*2.2))+'deg)';
+    if(nearFire()){stopFlight();snapToFire();return;}
+    var speed=Math.hypot(velX,velY);
+    if(speed<0.45&&py>=maxY-1){restMs+=16;}else{restMs=0;}
+    if(restMs>320){stopFlight();returnHome(false);return;}
+    flyRaf=requestAnimationFrame(step);
+  }
+  flyRaf=requestAnimationFrame(step);
+}
+function stopFlight(){
+  flying=false;
+  if(flyRaf){cancelAnimationFrame(flyRaf);flyRaf=null;}
+}
+function returnHome(instant){
+  effigy.classList.remove('flail');
+  mouth.setAttribute('d','M33 26 q7 3 14 0');
+  hoverScale=0;avoidX=0;dragPull=0;applyFire();
+  var slot=effigySlot.getBoundingClientRect();
+  if(instant){
+    finishReturn();return;
+  }
+  effigy.classList.add('flying');
+  effigy.style.transition='left .6s cubic-bezier(.3,1.3,.4,1), top .6s cubic-bezier(.3,1.3,.4,1), transform .6s ease';
+  effigy.style.left=(slot.left+slot.width/2-effigy.getBoundingClientRect().width/2)+'px';
+  effigy.style.top=(slot.top+4)+'px';
+  effigy.style.transform='rotate(0deg)';
+  showToast('He whispers: "coward."');
+  setTimeout(finishReturn,640);
+}
+function finishReturn(){
+  effigy.style.transition='';
+  effigy.classList.remove('dragging','flying','flail');
+  effigy.style.left='';effigy.style.top='';effigy.style.width='';effigy.style.transform='';
+  effigySlot.appendChild(effigy);
+}
+
+/* ---- the fyre takes him: snap, burn black, register ---- */
+function snapToFire(){
+  if(burning)return;burning=true;
+  dragging=false;flying=false;stopFlight();
+  clearTimeout(holdTimer);
+  dropring.classList.remove('active');
+  var c=hearthCenter();
+  var w=effigy.getBoundingClientRect().width,h=effigy.getBoundingClientRect().height;
+  effigy.classList.add('flying','flail');
+  effigy.classList.remove('dragging');
+  effigy.style.transition='left .22s ease-in, top .22s ease-in, transform .22s ease-in';
+  effigy.style.left=(c.x-w/2)+'px';
+  effigy.style.top=(c.y-h/2)+'px';
+  effigy.style.transform='rotate(0deg) scale(.92)';
+  vibe(30);
+  setTimeout(function(){
+    /* BURST into flame */
+    try{
+    effigy.classList.add('charred');
+    burst(c.x,c.y,22);
+    burst(c.x,c.y-30,8);
+    fire.classList.add('flare');
+    flareSound();vibe([40,60,120]);
+    stageEl.classList.add('shake');
+    hoverScale=0;dragPull=0;avoidX=0;
+    feedBoost=0.65;
+    fire.style.transition='transform .3s cubic-bezier(.2,1.5,.4,1)';
+    applyFire();
+    setTimeout(function(){
+      fire.style.transition='transform 1.4s ease';
+      feedBoost=0;applyFire();
+      setTimeout(function(){fire.style.transition='transform .25s ease-out';},1500);
+    },900);
+    setTimeout(function(){fire.classList.remove('flare');stageEl.classList.remove('shake');},1300);
+    }catch(err){}
+    /* he chars, and he REMAINS — standing in the flames */
+    setTimeout(function(){
+      spawnPyreman(c);
+      effigy.classList.add('gone');
+      register(nameInput.value.trim());
+    },950);
+  },240);
+}
+
+/* a charred copy of the manling, planted in the fireplace in front of the flames */
+function spawnPyreman(c){
+  var old=document.getElementById('pyreman');
+  if(old)old.remove();
+  var fp=fireplaceEl.getBoundingClientRect();
+  var div=document.createElement('div');
+  div.className='pyreman';
+  div.id='pyreman';
+  /* clone the manling's markup, stripping ids so they stay unique */
+  div.innerHTML=effigy.outerHTML
+    .replace(/ class="effigy[^"]*"/,'')
+    .replace(/ id="effigy"/,'')
+    .replace(/ id="/g,' data-id="')
+    .replace(/ style="[^"]*"/g,'');
+  fireplaceEl.appendChild(div);
+  var w=64,h=w*(132/80);
+  div.style.left=(c.x-fp.left-w/2)+'px';
+  div.style.top=(c.y-fp.top-h/2)+'px';
+  /* next frame: the fill transition chars him black */
+  requestAnimationFrame(function(){requestAnimationFrame(function(){div.classList.add('charred');});});
+}
+
+function register(name){
+  guests.push({name:name,t:Date.now()});
+  renderGuests();
+  storeSet(GUEST_KEY,JSON.stringify(guests),true);
+  document.getElementById('tkName').textContent=name;
+  setTimeout(function(){document.getElementById('confirm').classList.add('show');},350);
+}
+document.getElementById('closeConfirm').addEventListener('click',function(){
+  document.getElementById('confirm').classList.remove('show');
+  nameInput.value='';
+  burning=false;
+  effigy.classList.remove('gone','charred','flail','wiggle');
+  finishReturn();
+  stationLabel.textContent='⬆ Drag me into the fyre, and thy place is kept ⬆';
+});
+
+/* ===== quiet diversions ===== */
+var pokes=0;
+hearth.addEventListener('pointerdown',function(e){
+  if(dragging||burning)return;
+  pokes++;
+  fire.classList.add('flare');
+  setTimeout(function(){fire.classList.remove('flare');},350);
+  burst(e.clientX,e.clientY,4);
+  popNote(300+Math.random()*300);vibe(15);
+  if(pokes===5)showToast('The fyre is ticklish.');
+  if(pokes===12){showToast('Enough! The fyre yields. Thy persistence is noted in the ledger.');burst(e.clientX,e.clientY,14);}
+});
+var eyes=document.getElementById('eyes');
+document.getElementById('windowEl').addEventListener('click',function(){
+  eyes.classList.add('fled');
+  showToast('You saw nothing. It saw everything.');
+  setTimeout(function(){eyes.classList.remove('fled');},6000);
+});
+var titleTaps=0,titleTimer=null;
+document.getElementById('title').addEventListener('click',function(){
+  titleTaps++;clearTimeout(titleTimer);
+  titleTimer=setTimeout(function(){titleTaps=0;},1500);
+  if(titleTaps>=5){
+    titleTaps=0;
+    var on=document.body.classList.toggle('party');
+    showToast(on?'🪩 PARTY MODE. The runes are losing it.':'Party mode off. The runes compose themselves.');
+    popNote(on?880:220);vibe([30,40,30]);
+  }
+});
+</script>
+</body>
+</html>
